@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Avis atelier RESPiRE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef3f0;
+    --surface:#ffffff;
+    --surface-alt:#e4ece7;
+    --ink:#1b2420;
+    --ink-soft:#55635c;
+    --line:#d7e0db;
+    --accent:#2f6e63;
+    --accent-ink:#ffffff;
+    --accent-soft:#dceae5;
+    --warm:#b9713f;
+    --ring:#2f6e6355;
+    --shadow: 0 1px 2px rgba(20,30,26,.04), 0 8px 24px -12px rgba(20,30,26,.16);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#101512;
+      --surface:#171d1a;
+      --surface-alt:#1d2521;
+      --ink:#e9efec;
+      --ink-soft:#9fafa8;
+      --line:#2a342f;
+      --accent:#6fbdae;
+      --accent-ink:#0b1210;
+      --accent-soft:#1e2e2a;
+      --warm:#d98f5e;
+      --ring:#6fbdae55;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#101512;
+    --surface:#171d1a;
+    --surface-alt:#1d2521;
+    --ink:#e9efec;
+    --ink-soft:#9fafa8;
+    --line:#2a342f;
+    --accent:#6fbdae;
+    --accent-ink:#0b1210;
+    --accent-soft:#1e2e2a;
+    --warm:#d98f5e;
+    --ring:#6fbdae55;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height:1.55;
+    padding-inline:20px;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:600;
+    text-wrap:balance;
+    margin:0;
+  }
+  .wrap{max-width:660px; margin:0 auto; padding-block:40px 64px;}
+
+  /* ---- header ---- */
+  .brandmark{
+    display:flex; align-items:baseline; gap:2px;
+    font-family:'Fraunces', serif; font-weight:500; font-size:13px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
+    margin-bottom:14px;
+  }
+  .brandmark span{display:inline-block; animation:breathe 5.6s ease-in-out infinite;}
+  .brandmark span:nth-child(1){animation-delay:0s;}
+  .brandmark span:nth-child(2){animation-delay:.35s;}
+  .brandmark span:nth-child(3){animation-delay:.7s;}
+  .brandmark span:nth-child(4){animation-delay:1.05s;}
+  .brandmark span:nth-child(5){animation-delay:1.4s;}
+  .brandmark span:nth-child(6){animation-delay:1.75s;}
+  .brandmark span:nth-child(7){animation-delay:2.1s;}
+  @keyframes breathe{0%,100%{opacity:.45;}50%{opacity:1;}}
+  @media (prefers-reduced-motion: reduce){ .brandmark span{animation:none; opacity:1;} }
+
+  header p.lead{
+    color:var(--ink-soft); font-size:15.5px; margin-top:10px; max-width:52ch;
+  }
+  header h1{font-size:clamp(28px,5vw,36px); line-height:1.18;}
+
+  hr.div{
+    border:none; border-top:1px solid var(--line); margin:32px 0;
+  }
+
+  /* ---- sections ---- */
+  section{margin-top:40px;}
+  .eyebrow{
+    font-size:11.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--warm); margin-bottom:6px;
+  }
+  section > h2{font-size:21px; margin-bottom:4px;}
+  section > p.hint{color:var(--ink-soft); font-size:14px; margin:6px 0 20px;}
+
+  /* ---- info grid ---- */
+  .info-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px 24px;
+  }
+  @media (max-width:520px){ .info-grid{grid-template-columns:1fr;} }
+  .field label{
+    display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:5px;
+  }
+  .field input[type="text"]{
+    width:100%; font:inherit; font-size:15.5px; color:var(--ink);
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:10px 12px; outline:none; transition:border-color .15s, box-shadow .15s;
+  }
+  .field input[type="text"]:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--ring);}
+
+  /* ---- rating scale ---- */
+  .scale-caption{
+    display:flex; justify-content:space-between; font-size:11.5px; color:var(--ink-soft);
+    max-width:280px; margin:0 0 10px auto;
+  }
+  .rating{
+    display:flex; align-items:center; justify-content:space-between; gap:18px;
+    padding:16px 0; border-top:1px solid var(--line);
+  }
+  .rating:last-child{border-bottom:1px solid var(--line);}
+  .rating .txt{flex:1; min-width:0;}
+  .rating .txt .q{font-size:15px; font-weight:500;}
+  .rating .txt .sub{display:block; font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+  .dots{display:flex; gap:8px; flex:none;}
+  .dot{position:relative; width:30px; height:30px;}
+  .dot input{position:absolute; inset:0; opacity:0; margin:0; cursor:pointer;}
+  .dot span{
+    position:absolute; inset:0; border-radius:50%; border:1.5px solid var(--line);
+    background:var(--surface); transition:border-color .15s, background .15s, transform .1s;
+  }
+  .dot input:hover + span{border-color:var(--accent);}
+  .dot input:focus-visible + span{box-shadow:0 0 0 3px var(--ring);}
+  .dot input:checked + span{border-color:var(--accent); background:var(--accent); box-shadow:inset 0 0 0 4px var(--surface);}
+  .dot input:active + span{transform:scale(.92);}
+  @media (max-width:520px){
+    .rating{flex-direction:column; align-items:stretch; gap:10px;}
+    .dots{justify-content:space-between;}
+    .dot{width:15.6vw; height:15.6vw; max-width:34px; max-height:34px;}
+  }
+
+  /* ---- NPS ---- */
+  .nps-card{
+    background:var(--accent-soft); border-radius:14px; padding:22px 22px 20px;
+  }
+  .nps-card .q{font-size:15.5px; font-weight:600;}
+  .nps-card .sub{display:block; font-size:12.5px; color:var(--ink-soft); margin:3px 0 16px;}
+  .nps-row{display:flex; justify-content:space-between; gap:4px;}
+  .nps-item{display:flex; flex-direction:column; align-items:center; gap:6px; flex:1;}
+  .nps-item .dot{width:28px; height:28px;}
+  .nps-item .num{font-size:10.5px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+  @media (max-width:560px){
+    .nps-row{overflow-x:auto; padding-bottom:4px; justify-content:flex-start;}
+    .nps-item{flex:none; width:38px;}
+  }
+
+  /* ---- textareas ---- */
+  .field textarea{
+    width:100%; font:inherit; font-size:15px; color:var(--ink); line-height:1.6;
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; outline:none; resize:vertical; transition:border-color .15s, box-shadow .15s;
+  }
+  .field textarea:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--ring);}
+  .field + .field{margin-top:22px;}
+  .field .flabel{font-size:15px; font-weight:500; margin-bottom:2px; display:block;}
+  .field .fhint{display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:8px;}
+
+  .quote-box{
+    border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-top:26px;
+    background:var(--surface);
+  }
+  .consent{
+    display:flex; align-items:flex-start; gap:10px; margin-top:14px; font-size:13.5px; color:var(--ink-soft);
+  }
+  .consent input{width:17px; height:17px; margin-top:1px; accent-color:var(--accent);}
+
+  /* ---- actions ---- */
+  .actions{
+    margin-top:36px; display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+  }
+  button{
+    font:inherit; font-size:15px; font-weight:600; border-radius:9px; cursor:pointer;
+    border:none; padding:13px 22px; transition:transform .08s, opacity .15s, background .15s;
+  }
+  button:active{transform:scale(.98);}
+  .btn-primary{background:var(--accent); color:var(--accent-ink);}
+  .btn-primary:hover{opacity:.92;}
+  .btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+  #status{font-size:13.5px; color:var(--accent); min-height:1.4em;}
+  .note{font-size:12.5px; color:var(--ink-soft); margin-top:14px; max-width:56ch;}
+
+  footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  footer a{color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brandmark"><span>R</span><span>·</span><span>E</span><span>·</span><span>S</span><span>·</span><span>P</span><span>·</span><span>i</span><span>·</span><span>R</span><span>·</span><span>E</span></div>
+    <h1>Votre avis sur l'atelier</h1>
+    <p class="lead">Deux minutes pour nous dire ce qui a compté — et ce qu'on peut faire mieux la prochaine fois. Vos réponses ne sont enregistrées nulle part : elles partent uniquement par e-mail, directement à Guy.</p>
+  </header>
+
+  <hr class="div">
+
+  <section>
+    <div class="eyebrow">Le contexte</div>
+    <h2>L'atelier, en bref</h2>
+    <div class="info-grid" style="margin-top:18px;">
+      <div class="field"><label for="f-entreprise">Entreprise</label><input type="text" id="f-entreprise" data-k="Entreprise"></div>
+      <div class="field"><label for="f-nom">Votre nom · fonction</label><input type="text" id="f-nom" data-k="Nom · fonction"></div>
+      <div class="field"><label for="f-date">Date de l'atelier</label><input type="text" id="f-date" data-k="Date de l'atelier"></div>
+      <div class="field"><label for="f-participants">Participants</label><input type="text" id="f-participants" data-k="Participants"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">En quelques clics</div>
+    <h2>Comment ça s'est passé</h2>
+    <div class="scale-caption"><span>insuffisant</span><span>excellent</span></div>
+    <div class="ratings">
+      <!-- rating rows injected by data below, kept as static markup for reliability -->
+    </div>
+  </section>
+
+  <section>
+    <div class="nps-card">
+      <div class="q">Recommanderiez-vous RESPiRE à une autre entreprise&nbsp;?</div>
+      <span class="sub">0 = jamais · 10 = sans hésiter</span>
+      <div class="nps-row" id="nps-row"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">En quelques mots</div>
+    <h2>Ce que vous retenez</h2>
+    <p class="hint">Une ou deux phrases suffisent pour chaque question.</p>
+
+    <div class="field">
+      <label class="flabel" for="f-garder">À garder absolument</label>
+      <span class="fhint">Ce qui a le mieux fonctionné, le moment qui vous a marqué.</span>
+      <textarea id="f-garder" data-k="À garder absolument" rows="3"></textarea>
+    </div>
+    <div class="field">
+      <label class="flabel" for="f-plus">Ce que vous auriez aimé trouver en plus</label>
+      <span class="fhint">Un contenu, un temps d'échange, un suivi, un support…</span>
+      <textarea id="f-plus" data-k="Aimerait en plus" rows="3"></textarea>
+    </div>
+    <div class="field">
+      <label class="flabel" for="f-ameliorer">Ce qui pourrait être amélioré pour une prochaine fois</label>
+      <span class="fhint">Durée, horaire, taille de groupe, lieu, rythme, communication…</span>
+      <textarea id="f-ameliorer" data-k="À améliorer" rows="3"></textarea>
+    </div>
+    <div class="field">
+      <label class="flabel" for="f-suite">Et pour la suite</label>
+      <span class="fhint">Un autre format, une autre équipe, un rendez-vous régulier&nbsp;? Dites-nous ce qui aurait du sens.</span>
+      <textarea id="f-suite" data-k="Pour la suite" rows="3"></textarea>
+    </div>
+
+    <div class="quote-box">
+      <label class="flabel" for="f-citation">Une phrase que nous pourrions citer</label>
+      <span class="fhint">Facultatif, et précieux pour nous.</span>
+      <textarea id="f-citation" data-k="Citation" rows="2"></textarea>
+      <label class="consent"><input type="checkbox" id="f-autorisation"><span>J'autorise RESPiRE à citer ce retour avec le nom de mon entreprise.</span></label>
+    </div>
+  </section>
+
+  <section>
+    <div class="actions">
+      <button type="button" class="btn-primary" id="btn-send">Envoyer par e-mail</button>
+      <button type="button" class="btn-ghost" id="btn-copy">Copier mes réponses</button>
+      <span id="status"></span>
+    </div>
+    <p class="note">« Envoyer par e-mail » ouvre votre messagerie avec le message déjà rempli, à l'adresse contact@respire.world — vous n'avez qu'à vérifier et cliquer sur Envoyer. Si votre messagerie ne s'ouvre pas, utilisez « Copier mes réponses », puis collez le texte dans un e-mail adressé à contact@respire.world.</p>
+  </section>
+
+  <footer>
+    <span>RESPiRE · respire.world</span>
+    <span>Merci pour ce temps · Guy Winckler</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const TO = 'contact@respire.world';
+  const KEY = 'respire-feedback-v1';
+
+  const RATINGS = [
+    { key:'com', q:'Communication et réactivité avec Guy', sub:'clarté des échanges, délais de réponse' },
+    { key:'prep', q:'Préparation en amont', sub:'brief, informations transmises, anticipation' },
+    { key:'orga', q:'Organisation le jour J', sub:'ponctualité, matériel, mise en place' },
+    { key:'adapt', q:'Adaptation au contexte', sub:'lieu, taille du groupe, imprévus, demandes de dernière minute' },
+    { key:'anim', q:'Animation et posture du facilitateur', sub:'clarté des consignes, cadre, respect des rythmes' },
+    { key:'partic', q:'Satisfaction de vos participants', sub:'ce que vous avez entendu et observé après l’atelier' },
+    { key:'valeur', q:'Valeur perçue par rapport au budget', sub:'ce que l’atelier a apporté au regard de l’investissement' },
+    { key:'plaisir', q:'Plaisir à travailler ensemble', sub:'relation, confiance, simplicité de la collaboration' },
+  ];
+
+  function esc(s){
+    const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+  }
+
+  // Build the 1-5 rating rows
+  const ratingsWrap = document.querySelector('.ratings');
+  RATINGS.forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'rating';
+    let dots = '';
+    for (let i = 1; i <= 5; i++){
+      dots += `<label class="dot"><input type="radio" name="q_${r.key}" value="${i}"><span></span></label>`;
+    }
+    row.innerHTML = `<div class="txt"><span class="q">${esc(r.q)}</span><span class="sub">${esc(r.sub)}</span></div><div class="dots">${dots}</div>`;
+    ratingsWrap.appendChild(row);
+  });
+
+  // Build the 0-10 NPS row
+  const npsRow = document.getElementById('nps-row');
+  for (let i = 0; i <= 10; i++){
+    const item = document.createElement('div');
+    item.className = 'nps-item';
+    item.innerHTML = `<label class="dot"><input type="radio" name="q_nps" value="${i}"><span></span></label><span class="num">${i}</span>`;
+    npsRow.appendChild(item);
+  }
+
+  const LABELS = {};
+  RATINGS.forEach(r => { LABELS['q_' + r.key] = r.q; });
+  LABELS['q_nps'] = 'Recommandation (0-10)';
+
+  const fieldEls = () => Array.from(document.querySelectorAll('[data-k]'));
+
+  function collect(){
+    const out = [];
+    document.querySelectorAll('#f-entreprise, #f-nom, #f-date, #f-participants').forEach(el => {
+      if (el.value.trim()) out.push([el.dataset.k, el.value.trim()]);
+    });
+    RATINGS.forEach(r => {
+      const checked = document.querySelector(`input[name="q_${r.key}"]:checked`);
+      if (checked) out.push([r.q, checked.value + ' / 5']);
+    });
+    const nps = document.querySelector('input[name="q_nps"]:checked');
+    if (nps) out.push(['Recommandation (0-10)', nps.value]);
+    document.querySelectorAll('#f-garder, #f-plus, #f-ameliorer, #f-suite, #f-citation').forEach(el => {
+      if (el.value.trim()) out.push([el.dataset.k, el.value.trim()]);
+    });
+    if (document.getElementById('f-autorisation').checked){
+      out.push(['Autorise la citation', 'oui']);
+    }
+    return out;
+  }
+
+  function toText(){
+    const rows = collect();
+    const lines = ["RETOUR D'EXPÉRIENCE — ATELIER RESPiRE", ''];
+    rows.forEach(([k, v]) => lines.push(k + ' : ' + v));
+    if (rows.length <= 1) lines.push('(aucune réponse saisie)');
+    return lines.join('\n');
+  }
+
+  const statusEl = document.getElementById('status');
+  let statusTimer;
+  function say(msg){
+    statusEl.textContent = msg;
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(() => { statusEl.textContent = ''; }, 3200);
+  }
+
+  function copyToClipboard(text){
+    // navigator.clipboard is absent on non-secure origins (http, file://) and
+    // on older browsers, not just permission-denied — guard the lookup itself.
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok ? Promise.resolve() : Promise.reject(new Error('execCommand failed'));
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+
+  document.getElementById('btn-copy').addEventListener('click', () => {
+    copyToClipboard(toText()).then(
+      () => say('Réponses copiées dans le presse-papiers.'),
+      () => say('Impossible de copier automatiquement — sélectionnez le texte à la main.')
+    );
+  });
+
+  document.getElementById('btn-send').addEventListener('click', () => {
+    const text = toText();
+    copyToClipboard(text).catch(() => {});
+    const entreprise = document.getElementById('f-entreprise').value.trim();
+    const subject = 'Retour d’expérience — atelier RESPiRE' + (entreprise ? ' — ' + entreprise : '');
+    const mailto = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
+    window.location.href = mailto;
+    say('Votre messagerie s’ouvre avec le message prêt à envoyer…');
+  });
+
+  // Draft autosave so a long form isn't lost on an accidental refresh
+  function save(){
+    try {
+      const data = {};
+      document.querySelectorAll('[data-k]').forEach(el => { data[el.id] = el.value; });
+      document.querySelectorAll('input[type=radio]:checked').forEach(el => { data[el.name] = el.value; });
+      data['f-autorisation'] = document.getElementById('f-autorisation').checked;
+      localStorage.setItem(KEY, JSON.stringify(data));
+    } catch(e){}
+  }
+  function restore(){
+    let data = {};
+    try { data = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return; }
+    document.querySelectorAll('[data-k]').forEach(el => { if (data[el.id] !== undefined) el.value = data[el.id]; });
+    document.querySelectorAll('input[type=radio]').forEach(el => {
+      if (data[el.name] === el.value) el.checked = true;
+    });
+    if (data['f-autorisation']) document.getElementById('f-autorisation').checked = true;
+  }
+  document.addEventListener('input', save);
+  document.addEventListener('change', save);
+  restore();
+})();
+</script>
+</body>
+</html>
