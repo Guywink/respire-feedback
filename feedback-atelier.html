@@ -281,11 +281,11 @@
 
   <section>
     <div class="actions">
-      <button type="button" class="btn-primary" id="btn-send">Envoyer par e-mail</button>
+      <button type="button" class="btn-primary" id="btn-send">Envoyer mes réponses</button>
       <button type="button" class="btn-ghost" id="btn-copy">Copier mes réponses</button>
       <span id="status"></span>
     </div>
-    <p class="note">« Envoyer par e-mail » ouvre votre messagerie avec le message déjà rempli, à l'adresse contact@respire.world — vous n'avez qu'à vérifier et cliquer sur Envoyer. Si votre messagerie ne s'ouvre pas, utilisez « Copier mes réponses », puis collez le texte dans un e-mail adressé à contact@respire.world.</p>
+    <p class="note">« Envoyer mes réponses » transmet directement votre message à contact@respire.world. Si l'envoi échoue (connexion, incident technique), utilisez « Copier mes réponses », puis collez le texte dans un e-mail adressé à contact@respire.world.</p>
   </section>
 
   <footer>
@@ -297,7 +297,7 @@
 
 <script>
 (function(){
-  const TO = 'contact@respire.world';
+  const API_URL = 'https://parts-app-backend.onrender.com/respire-feedback';
   const KEY = 'respire-feedback-v1';
 
   const RATINGS = [
@@ -407,14 +407,50 @@
     );
   });
 
-  document.getElementById('btn-send').addEventListener('click', () => {
-    const text = toText();
-    copyToClipboard(text).catch(() => {});
-    const entreprise = document.getElementById('f-entreprise').value.trim();
-    const subject = 'Retour d’expérience — atelier RESPiRE' + (entreprise ? ' — ' + entreprise : '');
-    const mailto = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
-    window.location.href = mailto;
-    say('Votre messagerie s’ouvre avec le message prêt à envoyer…');
+  function collectPayload(){
+    const val = id => document.getElementById(id).value.trim() || null;
+    const rating = key => {
+      const el = document.querySelector(`input[name="q_${key}"]:checked`);
+      return el ? Number(el.value) : null;
+    };
+    return {
+      entreprise: val('f-entreprise'), nom: val('f-nom'), date: val('f-date'), participants: val('f-participants'),
+      q_com: rating('com'), q_prep: rating('prep'), q_orga: rating('orga'), q_adapt: rating('adapt'),
+      q_anim: rating('anim'), q_partic: rating('partic'), q_valeur: rating('valeur'), q_plaisir: rating('plaisir'),
+      q_nps: rating('nps'),
+      garder: val('f-garder'), plus: val('f-plus'), ameliorer: val('f-ameliorer'), suite: val('f-suite'), citation: val('f-citation'),
+      autorisation: document.getElementById('f-autorisation').checked,
+    };
+  }
+
+  function resetForm(){
+    document.querySelectorAll('[data-k]').forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type=radio]').forEach(el => { el.checked = false; });
+    document.getElementById('f-autorisation').checked = false;
+    try { localStorage.removeItem(KEY); } catch(e){}
+  }
+
+  document.getElementById('btn-send').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-send');
+    btn.disabled = true;
+    say('Envoi en cours…');
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(collectPayload()),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail || res.statusText);
+      }
+      say('Réponses envoyées, merci !');
+      resetForm();
+    } catch (err) {
+      say('Envoi impossible (' + err.message + ') — utilisez « Copier mes réponses ».');
+    } finally {
+      btn.disabled = false;
+    }
   });
 
   // Draft autosave so a long form isn't lost on an accidental refresh
