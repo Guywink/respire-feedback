@@ -200,6 +200,11 @@
   .btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--line);}
   .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
   #status{font-size:13.5px; color:var(--accent); min-height:1.4em;}
+  #status.status-success{
+    display:inline-flex; align-items:center; gap:7px; font-weight:600; font-size:14px;
+    color:var(--accent-ink); background:var(--accent); padding:7px 14px; border-radius:7px;
+  }
+  #status.status-success::before{content:"✓";}
   .note{font-size:12.5px; color:var(--ink-soft); margin-top:14px; max-width:56ch;}
 
   footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;}
@@ -373,10 +378,18 @@
 
   const statusEl = document.getElementById('status');
   let statusTimer;
-  function say(msg){
+  function say(msg, persist){
     statusEl.textContent = msg;
+    statusEl.classList.remove('status-success');
     clearTimeout(statusTimer);
-    statusTimer = setTimeout(() => { statusEl.textContent = ''; }, 3200);
+    if (!persist){
+      statusTimer = setTimeout(() => { statusEl.textContent = ''; }, 3200);
+    }
+  }
+  function sayConfirmed(msg){
+    clearTimeout(statusTimer);
+    statusEl.textContent = msg;
+    statusEl.classList.add('status-success');
   }
 
   function copyToClipboard(text){
@@ -444,7 +457,7 @@
         const data = await res.json().catch(() => ({}));
         throw new Error(data.detail || res.statusText);
       }
-      say('Réponses envoyées, merci !');
+      sayConfirmed('Réponses envoyées à contact@respire.world, merci !');
       resetForm();
     } catch (err) {
       say('Envoi impossible (' + err.message + ') — utilisez « Copier mes réponses ».');
